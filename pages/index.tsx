@@ -1,13 +1,19 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import { GetStaticProps, InferGetStaticPropsType } from "next";
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">About</Link>
-    </p>
-  </Layout>
-)
+const IndexPage = ({
+  name,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  if (!name) {
+    name = "killua";
+  }
 
-export default IndexPage
+  return <p>Hi, {name}</p>;
+};
+
+export const getStaticProps: GetStaticProps<{
+  name?: string;
+}> = async () => {
+  return { props: { name: "killua" } };
+};
+
+export default IndexPage;
